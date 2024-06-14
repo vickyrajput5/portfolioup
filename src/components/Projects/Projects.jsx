@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { sumArray } from "../helper";
-import './Projects.css'
+import "./Projects.css";
 
 import { Card } from "./Card/Card";
-import {projects} from '../../data'
+import { projects } from "../../data";
 const tabs = [
   { name: "All" },
   { name: "Web" },
   { name: "UI/UX" },
-  { name: "Apps" },
+  { name: "Wordpress" },
 ];
 export const Projects = () => {
-  const [displayProject, setDisplayProject] = useState(projects)
+  const [displayProject, setDisplayProject] = useState(projects);
   const [activeIndex, setActiveIndex] = useState(0);
   const [offset, setOffset] = useState(0);
   const [indicatorWidth, setIndicatorWidth] = useState(0);
@@ -24,13 +24,15 @@ export const Projects = () => {
     setIndicatorWidth(itemEls.current[activeIndex].OffsetWidth);
   }, [activeIndex]);
 
-  const setProjects = (category) =>{
-    if(category === 'All'){
-      return setDisplayProject(projects)
+  const setProjects = (category) => {
+    if (category === "All") {
+      return setDisplayProject(projects);
     }
-    const pro = projects.filter((item)=>item.category.toLowerCase() === category.toLowerCase())
-    setDisplayProject(pro)
-  }
+    const pro = projects.filter(
+      (item) => item.category.toLowerCase() === category.toLowerCase()
+    );
+    setDisplayProject(pro);
+  };
   return (
     <section id="projects" className="blur-effect">
       <div className="section__wrapper projects__container">
@@ -40,10 +42,10 @@ export const Projects = () => {
         <nav>
           {tabs.map((tab, index) => (
             <button
-              ref={el =>itemEls.current[index] = el}
+              ref={(el) => (itemEls.current[index] = el)}
               onClick={() => {
                 setActiveIndex(index);
-                setProjects(tab.name)
+                setProjects(tab.name);
               }}
               key={index}
             >
@@ -56,17 +58,31 @@ export const Projects = () => {
           ></span>
         </nav>
         <div className="card__container">
-          {
-            displayProject.map((project, index)=>(
+          {displayProject.map((project, index) => {
+            // Calculate the position in the row (0: left, 1: middle, 2: right)
+            const positionInRow = index % 3;
+
+            // Determine the appropriate AOS animation based on the position
+            let aosAnimation;
+            if (positionInRow === 0) {
+              aosAnimation = "zoom-in-left";
+            } else if (positionInRow === 1) {
+              aosAnimation = "zoom-in";
+            } else {
+              aosAnimation = "zoom-in-down";
+            }
+
+            return (
               <Card
-              title={project.title}
-              image={project.image}
-              data={project.data}
-              stack={project.stack}
-              key={index}
+                title={project.title}
+                image={project.image}
+                data={project.data}
+                stack={project.stack}
+                key={index}
+                aosAnimation={aosAnimation} // Pass the aosAnimation as a prop
               />
-            ))
-          }
+            );
+          })}
         </div>
       </div>
     </section>

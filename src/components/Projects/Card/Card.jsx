@@ -1,14 +1,20 @@
 /* eslint-disable array-callback-return */
 import React, { useState } from "react";
 import { AiOutlineShareAlt } from "react-icons/ai";
-import './Card.css'
+import "./Card.css";
 export const Card = (props) => {
   const [openStackExpandBar, setOpenStackExpandBar] = useState(false);
 
   return (
-    <div className="card">
-      <div className="picture">
-        <img src={props.image} alt={props.title} />
+    <div
+      className="card"
+      data-aos={props.aosAnimation}
+      // data-aos-duration="1000"
+    >
+      <div className="img-dev">
+        <div className="picture">
+          <img src={props.image} alt={props.title} />
+        </div>
       </div>
       <div className="card__details">
         <div className="card__details__top">
@@ -53,33 +59,43 @@ export const Card = (props) => {
                   >
                     <h3 className="title">More Stack Used</h3>
                     <div className="stack__box__container">
-                    {props.stack.map((list, index) => {
-                  if (index >= 4) {
-                    return (
-                      <div className="stack__box">
-                        <div className="stack__icon__container">
-                          <span
-                            className="stack__icon"
-                            style={{ color: list.iconColor }}
-                          >
-                            {list.icon}
-                          </span>
-                          <span className="stack__name">{list.name}</span>
-                        </div>
-                      </div>
-                    );
-                  }
-                })}
+                      {props.stack.map((list, index) => {
+                        if (index >= 4) {
+                          return (
+                            <div className="stack__box">
+                              <div className="stack__icon__container">
+                                <span
+                                  className="stack__icon"
+                                  style={{ color: list.iconColor }}
+                                >
+                                  {list.icon}
+                                </span>
+                                <span className="stack__name">{list.name}</span>
+                              </div>
+                            </div>
+                          );
+                        }
+                      })}
                     </div>
                   </div>
                 </div>
-              ) : ""
-              }
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="button__container">
-            <a href={props.data.demoLink} target='_blank' className="btn btn__primary" rel="noreferrer" >Demo</a>
-            <div className="btn__share"><AiOutlineShareAlt/></div>
+            <a
+              href={props.data.demoLink}
+              target="_blank"
+              className="btn btn__primary"
+              rel="noreferrer"
+            >
+              Demo
+            </a>
+            <div className="btn__share">
+              <AiOutlineShareAlt />
+            </div>
           </div>
         </div>
       </div>
