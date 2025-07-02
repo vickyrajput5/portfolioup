@@ -37,7 +37,7 @@ export const Projects = () => {
     <section id="projects" className="blur-effect">
       <div className="section__wrapper projects__container">
         <div className="section__header center">
-          <h2 className="primary__title">Porjects</h2>
+          <h2 className="primary__title">Projects</h2>
         </div>
         <nav>
           {tabs.map((tab, index) => (
